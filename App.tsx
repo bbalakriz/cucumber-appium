@@ -1,20 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(){
+  const [message, setMessage] = useState('');
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
+      <Text accessibilityLabel="welcome-text">Welcome to the App!</Text>
+
+      <Button
+        title="Press Me"
+        onPress={() => setMessage('Button was pressed!')}
+        accessibilityLabel="PressButton" // For Appium to identify it
+      />
+
+      {message !== '' && (
+        <Text testID="response-text" accessibilityLabel="ResponseMessage">
+          {message}
+        </Text>
+      )}
     </View>
   );
 }
@@ -22,6 +26,8 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
